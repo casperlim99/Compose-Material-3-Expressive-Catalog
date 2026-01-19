@@ -26,6 +26,7 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MotionScheme
 import com.emertozd.compose.catalog.library.model.ColorMode
 import com.emertozd.compose.catalog.library.model.FontScaleMode
 import com.emertozd.compose.catalog.library.model.TextDirection
@@ -107,11 +108,13 @@ fun CatalogTheme(theme: Theme, content: @Composable () -> Unit) {
         if (theme.expressiveThemeMode == ExpressiveThemeMode.Expressive) {
             MaterialExpressiveTheme(
                 colorScheme = colorScheme,
+                motionScheme = MotionScheme.expressive(),
                 content = content,
             )
         } else {
             MaterialTheme(
                 colorScheme = colorScheme,
+                motionScheme = MotionScheme.standard(),
                 content = content,
             )
         }

@@ -33,7 +33,7 @@ fun Material3CatalogApp(initialFavoriteRoute: String?) {
     val userPreferencesRepository = remember { UserPreferencesRepository(context) }
     val theme = userPreferencesRepository.theme.collectAsState(Theme()).value
     CatalogTheme(theme = theme) {
-        NavGraph(
+        com.emertozd.compose.catalog.navigation.AppNavigation(
             initialFavoriteRoute = initialFavoriteRoute,
             theme = theme,
             onThemeChange = { coroutineScope.launch { userPreferencesRepository.saveTheme(it) } }

@@ -20,15 +20,18 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.MotionScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun CatalogTheme(content: @Composable () -> Unit) {
     val darkTheme = isSystemInDarkTheme()
@@ -39,7 +42,7 @@ fun CatalogTheme(content: @Composable () -> Unit) {
         WindowCompat.getInsetsController(context.findActivity().window, view)
             .isAppearanceLightStatusBars = !darkTheme
     }
-    MaterialTheme(colorScheme = colorScheme, content = content)
+    MaterialTheme(colorScheme = colorScheme, motionScheme = MotionScheme.standard(), content = content)
 }
 
 private tailrec fun Context.findActivity(): Activity =

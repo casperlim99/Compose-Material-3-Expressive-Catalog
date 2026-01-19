@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.emertozd.compose.catalog"
-        minSdk = 24
+        minSdk = 29
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -106,4 +106,11 @@ dependencies {
     implementation(libs.androidx.ui.unit)
     implementation(libs.androidx.ui.util)
     implementation(libs.androidx.ui.viewbinding)
+
+    /* Navigation 3 */
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+    implementation(libs.kotlinx.serialization.core)
+    implementation(libs.kotlinx.serialization.json)
 }
