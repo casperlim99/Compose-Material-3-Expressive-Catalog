@@ -54,12 +54,12 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
-    implementation(libs.ui)
+
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.datastore.core)
-    implementation(libs.androidx.material3.android)
+
     implementation(libs.androidx.adaptive)
     implementation(libs.androidx.adaptive.layout)
     implementation(libs.androidx.adaptive.navigation)
@@ -88,15 +88,13 @@ dependencies {
     implementation(libs.androidx.material.ripple)
     implementation(libs.androidx.material3.window.size)
     implementation(libs.androidx.runtime)
-    implementation(libs.androidx.runtime.livedata)
-    implementation(libs.androidx.runtime.rxjava2)
-    implementation(libs.androidx.runtime.rxjava3)
+
     implementation(libs.androidx.runtime.saveable)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.geometry)
     implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.test)
-    implementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.androidx.ui.test)
+
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.ui.text)
     implementation(libs.androidx.ui.text.google.fonts)
@@ -105,7 +103,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.ui.unit)
     implementation(libs.androidx.ui.util)
-    implementation(libs.androidx.ui.viewbinding)
+
 
     /* Navigation 3 */
     implementation(libs.androidx.navigation3.runtime)

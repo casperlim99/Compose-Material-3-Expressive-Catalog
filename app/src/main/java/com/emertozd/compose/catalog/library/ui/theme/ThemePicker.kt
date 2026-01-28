@@ -44,6 +44,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.minimumInteractiveComponentSize
 import com.emertozd.compose.catalog.library.model.ColorMode
+import com.emertozd.compose.catalog.library.model.FontFamilyMode
 import com.emertozd.compose.catalog.library.model.FontScaleMode
 import com.emertozd.compose.catalog.library.model.MaxFontScale
 import com.emertozd.compose.catalog.library.model.MinFontScale
@@ -120,29 +121,56 @@ fun ThemePicker(theme: Theme, onThemeChange: (theme: Theme) -> Unit) {
             // LazyVerticalGrid can't be used within LazyColumn due to nested scrolling
             val colorModes = ColorMode.values()
             Column(modifier = Modifier.padding(ThemePickerPadding)) {
-                Row(horizontalArrangement = Arrangement.spacedBy(ThemePickerPadding)) {
-                    RadioButtonOption(
-                        modifier = Modifier.weight(1f),
-                        option = colorModes[0],
-                        selected = colorModes[0] == theme.colorMode,
-                        onClick = { onThemeChange(theme.copy(colorMode = it)) },
-                    )
-                    RadioButtonOption(
-                        modifier = Modifier.weight(1f),
-                        option = colorModes[1],
-                        selected = colorModes[1] == theme.colorMode,
-                        onClick = { onThemeChange(theme.copy(colorMode = it)) },
-                    )
-                }
-                Row {
-                    RadioButtonOption(
-                        modifier = Modifier.weight(1f),
-                        option = colorModes[2],
-                        selected = colorModes[2] == theme.colorMode,
-                        enabled = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S,
-                        onClick = { onThemeChange(theme.copy(colorMode = it)) },
-                    )
-                }
+                // Baseline Group
+                RadioButtonOption(
+                    option = ColorMode.Baseline,
+                    selected = ColorMode.Baseline == theme.colorMode,
+                    onClick = { onThemeChange(theme.copy(colorMode = it)) },
+                )
+                
+                HorizontalDivider(Modifier.padding(vertical = 8.dp))
+
+                // Dynamic Group
+                val dynamicEnabled = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+                RadioButtonOption(
+                    option = ColorMode.Dynamic,
+                    selected = ColorMode.Dynamic == theme.colorMode,
+                    enabled = dynamicEnabled,
+                    onClick = { onThemeChange(theme.copy(colorMode = it)) },
+                )
+
+                HorizontalDivider(Modifier.padding(vertical = 8.dp))
+
+                // Generic Group (Old Custom)
+                RadioButtonOption(
+                    option = ColorMode.Generic,
+                    selected = ColorMode.Generic == theme.colorMode,
+                    onClick = { onThemeChange(theme.copy(colorMode = it)) },
+                )
+
+                HorizontalDivider(Modifier.padding(vertical = 8.dp))
+
+                // Variant Group
+                Text(
+                    text = "Variant Colors",
+                    style = MaterialTheme.typography.labelMedium,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+                RadioButtonOption(
+                    option = ColorMode.VariantStandard,
+                    selected = ColorMode.VariantStandard == theme.colorMode,
+                    onClick = { onThemeChange(theme.copy(colorMode = it)) },
+                )
+                RadioButtonOption(
+                    option = ColorMode.VariantMedium,
+                    selected = ColorMode.VariantMedium == theme.colorMode,
+                    onClick = { onThemeChange(theme.copy(colorMode = it)) },
+                )
+                RadioButtonOption(
+                    option = ColorMode.VariantHigh,
+                    selected = ColorMode.VariantHigh == theme.colorMode,
+                    onClick = { onThemeChange(theme.copy(colorMode = it)) },
+                )
             }
             HorizontalDivider(Modifier.padding(horizontal = ThemePickerPadding))
         }
@@ -206,6 +234,39 @@ fun ThemePicker(theme: Theme, onThemeChange: (theme: Theme) -> Unit) {
                     onValueChange = { fontScale = it },
                     onValueChangeFinished = { onThemeChange(theme.copy(fontScale = fontScale)) },
                 )
+            }
+            HorizontalDivider(Modifier.padding(horizontal = ThemePickerPadding))
+        }
+        item {
+            Text(
+                text = stringResource(id = R.string.font_family),
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(horizontal = ThemePickerPadding),
+            )
+            val fontFamilyModes = FontFamilyMode.values()
+            Column(modifier = Modifier.padding(ThemePickerPadding)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(ThemePickerPadding)) {
+                    RadioButtonOption(
+                        modifier = Modifier.weight(1f),
+                        option = fontFamilyModes[0], // System Default
+                        selected = fontFamilyModes[0] == theme.fontFamilyMode,
+                        onClick = { onThemeChange(theme.copy(fontFamilyMode = it)) },
+                    )
+                    RadioButtonOption(
+                        modifier = Modifier.weight(1f),
+                        option = fontFamilyModes[1], // Montserrat
+                        selected = fontFamilyModes[1] == theme.fontFamilyMode,
+                        onClick = { onThemeChange(theme.copy(fontFamilyMode = it)) },
+                    )
+                }
+                Row {
+                    RadioButtonOption(
+                        modifier = Modifier.weight(1f),
+                        option = fontFamilyModes[2], // Roboto Flex
+                        selected = fontFamilyModes[2] == theme.fontFamilyMode,
+                        onClick = { onThemeChange(theme.copy(fontFamilyMode = it)) },
+                    )
+                }
             }
             HorizontalDivider(Modifier.padding(horizontal = ThemePickerPadding))
         }

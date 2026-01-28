@@ -18,6 +18,8 @@ package com.emertozd.compose.catalog.library.model
 
 import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 
 data class Theme(
     val themeColorMode: ThemeColorMode = ThemeColorMode.System,
@@ -25,6 +27,7 @@ data class Theme(
     val expressiveThemeMode: ExpressiveThemeMode = ExpressiveThemeMode.NonExpressive,
     val fontScale: Float = 1.0f,
     val fontScaleMode: FontScaleMode = FontScaleMode.System,
+    val fontFamilyMode: FontFamilyMode = FontFamilyMode.System,
     val textDirection: TextDirection = TextDirection.System,
     val showOnlyExpressiveComponents: Boolean = false,
     val markExpressiveComponents: Boolean = true,
@@ -33,11 +36,12 @@ data class Theme(
         map: Map<String, Float>
     ) : this(
         themeColorMode = ThemeColorMode.values()[map.getValue(ThemeModeKey).toInt()],
-        colorMode = ColorMode.values()[map.getValue(ColorModeKey).toInt()],
+        colorMode = ColorMode.values().getOrElse(map.getValue(ColorModeKey).toInt()) { ColorMode.Generic },
         expressiveThemeMode =
             ExpressiveThemeMode.values()[map.getValue(ExpressiveThemeModeKey).toInt()],
         fontScale = map.getValue(FontScaleKey),
         fontScaleMode = FontScaleMode.values()[map.getValue(FontScaleModeKey).toInt()],
+        fontFamilyMode = FontFamilyMode.values()[map.getOrDefault(FontFamilyModeKey, 0f).toInt()],
         textDirection = TextDirection.values()[map.getValue(TextDirectionKey).toInt()],
         showOnlyExpressiveComponents = map.getValue(ShowOnlyExpressiveComponents).toInt() != 0,
         markExpressiveComponents = map.getValue(MarkExpressiveComponents).toInt() != 0,
@@ -50,6 +54,7 @@ data class Theme(
             ExpressiveThemeModeKey to expressiveThemeMode.ordinal.toFloat(),
             FontScaleKey to fontScale,
             FontScaleModeKey to fontScaleMode.ordinal.toFloat(),
+            FontFamilyModeKey to fontFamilyMode.ordinal.toFloat(),
             TextDirectionKey to textDirection.ordinal.toFloat(),
             ShowOnlyExpressiveComponents to if (showOnlyExpressiveComponents) 1 else 0,
             MarkExpressiveComponents to if (markExpressiveComponents) 1 else 0,
@@ -82,6 +87,12 @@ enum class ColorMode(val label: String) {
      * This is the default behavior, and the fallback if dynamic colors are not available on the
      * current device.
      */
+    /**
+     * The baseline light/dark colors schemes.
+     *
+     * This is the default behavior, and the fallback if dynamic colors are not available on the
+     * current device.
+     */
     Baseline("Baseline"),
     /**
      * Build a color scheme from a pre-selected color palette that behaves the same as a dynamic
@@ -89,14 +100,19 @@ enum class ColorMode(val label: String) {
      *
      * Useful for testing dynamic color schemes on devices that don't support dynamic colors.
      */
-    Custom("Custom"),
+    Generic("Generic Color"),
     /**
      * Build a color scheme from the dynamic colors taken from the Android System.
      *
      * If the dynamic colors are not available, the baseline color scheme will be used as a
      * fallback.
      */
-    Dynamic("Dynamic (Android 12+)");
+    Dynamic("Dynamic (Android 12+)"),
+
+    // Variant Colors (Explicitly defined in Color.kt)
+    VariantStandard("Variant Color (Standard)"),
+    VariantMedium("Variant Color (Medium Contrast)"),
+    VariantHigh("Variant Color (High Contrast)");
 
     override fun toString(): String = label
 }
@@ -104,6 +120,20 @@ enum class ColorMode(val label: String) {
 enum class FontScaleMode(val label: String) {
     Custom("Custom"),
     System("System");
+
+    override fun toString(): String = label
+}
+
+/**
+ * Determines which font family should be used for the app's typography.
+ */
+enum class FontFamilyMode(val label: String) {
+    /** Use the system default font (typically Roboto on Android). */
+    System("System Default"),
+    /** Use the Montserrat font family. */
+    Montserrat("Montserrat"),
+    /** Use the Roboto Flex variable font. */
+    RobotoFlex("Roboto Flex");
 
     override fun toString(): String = label
 }
@@ -136,6 +166,7 @@ private const val ColorModeKey = "colorMode"
 private const val ExpressiveThemeModeKey = "expressiveThemeMode"
 private const val FontScaleKey = "fontScale"
 private const val FontScaleModeKey = "fontScaleMode"
+private const val FontFamilyModeKey = "fontFamilyMode"
 private const val TextDirectionKey = "textDirection"
 private const val MarkExpressiveComponents = "markExpressiveComponents"
 private const val ShowOnlyExpressiveComponents = "showOnlyExpressiveComponents"

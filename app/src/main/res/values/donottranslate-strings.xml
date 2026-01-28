@@ -39,6 +39,7 @@
     <string name="expressive_theme_mode" description="Theme. [CHAR_LIMIT=NONE]">Expressive theme mode</string>
     <string name="color_mode" description=" Material 3 Color Mode. [CHAR_LIMIT=NONE]">Color mode</string>
     <string name="font_scale" description="Font scale. [CHAR_LIMIT=NONE]">Font scale</string>
+    <string name="font_family" description="Font family. [CHAR_LIMIT=NONE]">Font family</string>
     <string name="text_direction" description="Text direction. [CHAR_LIMIT=NONE]">Text direction</string>
     <string name="reset_all" description="Reset all. [CHAR_LIMIT=NONE]">Reset all</string>
 

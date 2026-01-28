@@ -1,4 +1,4 @@
-package com.emertozd.compose.catalog.ui.theme
+package com.emertozd.compose.catalog.library.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

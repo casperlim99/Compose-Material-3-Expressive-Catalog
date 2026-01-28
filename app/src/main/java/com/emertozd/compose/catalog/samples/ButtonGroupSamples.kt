@@ -70,7 +70,7 @@ fun ButtonGroupSample() {
     ButtonGroup(
         overflowIndicator = { menuState ->
             ButtonGroupDefaults.OverflowIndicator(menuState = menuState)
-        }
+        },
     ){
         for (i in 0 until numButtons) {
             clickableItem(onClick = {}, label = "$i")
