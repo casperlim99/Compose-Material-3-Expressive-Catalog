@@ -18,6 +18,10 @@ release/
 .gradle/
 build/
 
+#AI Tools
+.serena/
+
+
 # Local configuration file (sdk path, etc)
 local.properties
 
